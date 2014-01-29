@@ -55,7 +55,6 @@ namespace TestSparrow
 
         private void EncodeButton_Click(object sender, RoutedEventArgs e)
         {
-            LeftText = Clipboard.GetText();
             try
             {
                 LeftText = __EncoderDecoder.Encode(LeftText);
