@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TestSparrow.Common
 {
-    interface IPacketHandler
+    public interface IPacketHandler
     {
         void Handle(IPacket packet);
     }

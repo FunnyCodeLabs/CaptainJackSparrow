@@ -8,7 +8,7 @@ namespace TestSparrow.Common
 {
     public delegate void DataRecievedEventHandler(byte[] data);
 
-    interface IDataExchanger: IWorker
+    public interface IDataExchanger: IWorker
     {
         void Send(byte[] data);
         event DataRecievedEventHandler DataRecieved;

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace TestSparrow.Common
 {
-    public abstract class Connection
+    public class Connection : WorkerBase
     {
         private IDataExchanger __Exchanger;
         private IPacketProcessorStorage __PacketProcessorStorage;
@@ -20,7 +20,7 @@ namespace TestSparrow.Common
             __PacketProcessorStorage = storage;
         }
 
-        private void DataRecievedAsync(byte[] data)
+        private void HandleDataRecievedAsync(byte[] data)
         {
             var task = Task.Factory.StartNew(() =>
                 {
@@ -42,16 +42,16 @@ namespace TestSparrow.Common
             __Exchanger.Send(packetData);
         }
         
-        public void Start()
+        public override void Start()
         {
-            __Exchanger.DataRecieved += DataRecievedAsync;
+            __Exchanger.DataRecieved += HandleDataRecievedAsync;
             __Exchanger.Start();
         }
 
-        public void Stop()
+        public override void Stop()
         {
             __Exchanger.Stop();
-            __Exchanger.DataRecieved -= DataRecievedAsync;
+            __Exchanger.DataRecieved -= HandleDataRecievedAsync;
 
             while (__RunningHandles.Count > 0)
                 Thread.Sleep(10);

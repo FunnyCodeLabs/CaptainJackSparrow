@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TestSparrow.Common
 {
-    interface IPacketProcessor
+    public interface IPacketProcessor
     {
         PacketKey PacketID { get; }
         IPacketParser Parser { get; }

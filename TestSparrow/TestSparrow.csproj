@@ -61,6 +61,20 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Common\Connection.cs" />
+    <Compile Include="Common\Implementations\TCPDataExchanger.cs" />
+    <Compile Include="Common\Implementations\WorkerBase.cs" />
+    <Compile Include="Common\Interfaces\IDataExchanger.cs" />
+    <Compile Include="Common\Interfaces\IPacket.cs" />
+    <Compile Include="Common\Interfaces\IPacketHandler.cs" />
+    <Compile Include="Common\Interfaces\IPacketParser.cs" />
+    <Compile Include="Common\Interfaces\IPacketProcessor.cs" />
+    <Compile Include="Common\Interfaces\IPacketProcessorStorage.cs" />
+    <Compile Include="Common\Interfaces\IWorker.cs" />
+    <Compile Include="Common\Interfaces\PacketKey.cs" />
+    <Compile Include="Common\Implementations\PacketProcessorStorage.cs" />
+    <Compile Include="Common\TCPDataExchangerException.cs" />
+    <Compile Include="Common\TCPServer.cs" />
     <Compile Include="EncDec.cs" />
     <Compile Include="ICrypto.cs" />
     <Compile Include="MainWindow.xaml.cs">
@@ -100,9 +114,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Common\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

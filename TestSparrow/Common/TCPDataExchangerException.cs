@@ -6,10 +6,7 @@ using System.Threading.Tasks;
 
 namespace TestSparrow.Common
 {
-    public interface IWorker
+    public class TCPDataExchangerException: Exception
     {
-        void Start();
-        void Stop();
-        void Run();
     }
 }

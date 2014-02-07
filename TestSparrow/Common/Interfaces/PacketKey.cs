@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TestSparrow.Common
 {
-    class PacketKey
+    public class PacketKey
     {
         private int __Id;
 
@@ -38,14 +38,14 @@ namespace TestSparrow.Common
             return x.__Id;
         }
 
-        public static explicit operator int(PacketKey x)
-        {
-            return x.__Id;
-        }
-
         public static bool operator ==(PacketKey x, PacketKey y) 
         {
             return x.Equals(y);
+        }
+
+        public static bool operator !=(PacketKey x, PacketKey y)
+        {
+            return !x.Equals(y);
         }
 
         public override int GetHashCode()

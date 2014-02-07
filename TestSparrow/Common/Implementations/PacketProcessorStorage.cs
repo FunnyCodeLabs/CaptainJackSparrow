@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace TestSparrow.Common
 {
-    class PacketProcessorStorage : IPacketProcessorStorage
+    public class PacketProcessorStorage : IPacketProcessorStorage
     {
         private Dictionary<PacketKey, IPacketProcessor> __Storage;
 

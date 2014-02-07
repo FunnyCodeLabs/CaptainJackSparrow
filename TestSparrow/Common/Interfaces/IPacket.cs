@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace TestSparrow.Common
 {
-    interface IPacket
+    public interface IPacket
     {
         PacketKey Id { get; }
-        uint Length { get; }
+        ushort Length { get; }
     }
 }

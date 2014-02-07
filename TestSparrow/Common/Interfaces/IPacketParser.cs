@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TestSparrow.Common
 {
-    interface IPacketParser
+    public interface IPacketParser
     {
         IPacket Deserialize(byte[] data);
         byte[] Serialize(IPacket data);
