@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace TestSparrow.Common
 {
-    public interface IPacketProcessorStorage: IPacketHandlerStorage, IPacketParserStorage
+    public interface IPacketParserStorage
     {
-        IPacketProcessor GetProcessor(PacketKey key);
+        IPacketParser GetParser(PacketKey key);
     }
 }

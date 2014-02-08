@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace TestSparrow.Common
 {
-    public delegate void DataRecievedEventHandler(byte[] data);
+    public delegate void DataRecievedEventHandler(IPacket packet);
 
-    public interface IDataExchanger: IWorker
+    public interface IPacketExchanger: IWorker
     {
-        void Send(byte[] data);
+        void Send(IPacket packet);
         event DataRecievedEventHandler DataRecieved;
     }
 }

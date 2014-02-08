@@ -9,11 +9,21 @@ namespace TestSparrow.Common
 {
     public class PacketProcessorStorage : IPacketProcessorStorage
     {
-        private Dictionary<PacketKey, IPacketProcessor> __Storage;
+        private Dictionary<PacketKey, IPacketProcessor> __Storage = new Dictionary<PacketKey, IPacketProcessor>();
 
         public IPacketProcessor GetProcessor(PacketKey key)
         {
             return __Storage[key];
+        }
+
+        public IPacketParser GetParser(PacketKey key)
+        {
+            return __Storage[key].Parser;
+        }
+
+        public IPacketHandler GetHandler(PacketKey key)
+        {
+            return __Storage[key].Handler;
         }
 
         public void AddProcessor(IPacketProcessor processor)

@@ -9,27 +9,29 @@ using System.Threading.Tasks;
 
 namespace TestSparrow.Common
 {
-    public class TCPDataExchanger : WorkerBase, IDataExchanger
+    public class TCPDataExchanger : WorkerBase, IPacketExchanger
     {
         private const int HEADER_SIZE = sizeof(Int32) + sizeof(UInt16);
 
         private TcpClient __Socket;
         private NetworkStream __Stream;
 
-        private bool __Stopped = false;
+        private IPacketParserStorage __KeyToParserMap;
 
         private Task __InputProcessorThread;
-        private byte[] __HeaderBuffer;
-        private byte[] __DataBuffer;
+        private byte[] __PacketBuffer = null;
+        private Int32 __PacketID;
+        private UInt16 __PacketLength;
 
         private Task __OutputProcessorThread;
-        private Queue<byte[]> __OutputQueue = new Queue<byte[]>();
+        private Queue<IPacket> __OutputQueue = new Queue<IPacket>();
         private EventWaitHandle __OutputMonitor = new ManualResetEvent(false);
 
-        public TCPDataExchanger(TcpClient client)
+        public TCPDataExchanger(TcpClient client, IPacketParserStorage parsers)
         {
             __Socket = client;
             __Stream = __Socket.GetStream();
+            __KeyToParserMap = parsers;
         }
 
         protected override void JobProc()
@@ -44,21 +46,17 @@ namespace TestSparrow.Common
 
             while (!__Stopped)
             {
-                Int32 id = ReadHeaderAndData(tcpReader);
+                int RB = 0;
+                RB = ReadPacketData(tcpReader);
 
                 if (__Stopped)
                     return;
 
-                PacketKey key = new PacketKey(id);
+                PacketKey key = new PacketKey(__PacketID);
+                IPacketParser parser = __KeyToParserMap.GetParser(key);
+                IPacket packet = parser.Deserialize(__PacketBuffer);
 
-                var data = new byte[__HeaderBuffer.Length + __DataBuffer.Length];
-                __HeaderBuffer.CopyTo(data, 0);
-                __DataBuffer.CopyTo(data, __HeaderBuffer.Length);
-
-                if (__Stopped)
-                    return;
-
-                OnDataRecieved(data);
+                OnPacketRecieved(packet);
             }
         }
 
@@ -71,40 +69,46 @@ namespace TestSparrow.Common
                 __OutputMonitor.WaitOne();
 
                 if (__OutputQueue.Count > 0)
-                    tcpWriter.Write(__OutputQueue.Dequeue());
+                {
+                    IPacket packet = __OutputQueue.Dequeue();
+                    IPacketParser parser = __KeyToParserMap.GetParser(packet.Id);
+                    byte[] data = parser.Serialize(packet);
+
+                    tcpWriter.Write(data, 0, packet.Length);
+                }
                 else
                     __OutputMonitor.Reset();
             }
         }
 
-        private int ReadHeaderAndData(BinaryReader reader)
+        private int ReadPacketData(BinaryReader reader)
         {
-            int RB = reader.Read(__HeaderBuffer, 0, HEADER_SIZE);
+            int RB = reader.Read(__PacketBuffer, 0, HEADER_SIZE);
             if (RB != HEADER_SIZE)
             {
                 __Stopped = true;
-                return -1;
+                return RB;
             }
 
-            Int32 id = BitConverter.ToInt32(__HeaderBuffer, 0);
-            UInt16 length = BitConverter.ToUInt16(__HeaderBuffer, sizeof(Int32));
+            __PacketID = BitConverter.ToInt32(__PacketBuffer, 0);
+            __PacketLength = BitConverter.ToUInt16(__PacketBuffer, sizeof(Int32));
 
-            RB = reader.Read(__DataBuffer, 0, length);
-            if (RB != HEADER_SIZE)
+            RB = reader.Read(__PacketBuffer, HEADER_SIZE, __PacketLength - HEADER_SIZE);
+            if (RB != __PacketLength - HEADER_SIZE)
             {
                 __Stopped = true;
-                return -1;
+                return RB;
             }
 
-            return id;
+            return RB;
         }
 
-        protected virtual void OnDataRecieved(byte[] data)
+        protected virtual void OnPacketRecieved(IPacket packet)
         {
             DataRecievedEventHandler handler = DataRecieved;
             if (handler != null)
             {
-                handler(data);
+                handler(packet);
             }
         }
 
@@ -112,12 +116,14 @@ namespace TestSparrow.Common
 
         public event DataRecievedEventHandler DataRecieved;
 
-        public void Send(byte[] data)
+        public void Send(IPacket packet)
         {
-            __OutputQueue.Enqueue(data);
+            __OutputQueue.Enqueue(packet);
             __OutputMonitor.Set();
         }
 
         #endregion
+
+        
     }
 }
