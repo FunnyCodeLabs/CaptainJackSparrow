@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace TestSparrow.Common
 {
-    public class TCPDataExchanger : WorkerBase, IPacketExchanger
+    public class TCPPacketExchanger : WorkerBase, IPacketExchanger
     {
         private const int HEADER_SIZE = sizeof(Int32) + sizeof(UInt16);
         public const int STOP_TIMEOUT = 1000;
@@ -28,7 +28,7 @@ namespace TestSparrow.Common
         private Queue<IPacket> __OutputQueue = new Queue<IPacket>();
         private EventWaitHandle __OutputMonitor = new ManualResetEvent(false);
 
-        public TCPDataExchanger(TcpClient connectedClient, IPacketParserStorage parsers)
+        public TCPPacketExchanger(TcpClient connectedClient, IPacketParserStorage parsers)
         {
             __Socket = connectedClient;
             __Stream = __Socket.GetStream();
@@ -119,7 +119,6 @@ namespace TestSparrow.Common
             Task.WaitAll(new Task[2] { __InputProcessorThread, __OutputProcessorThread }, STOP_TIMEOUT);
 
             __Socket.Close();
-            __Socket = null;
         }
 
         #region IPacketExchanger
@@ -134,7 +133,17 @@ namespace TestSparrow.Common
 
         public bool Active
         {
-            get { return __Socket.Connected; }
+            get 
+            {
+                try
+                {
+                    return !(__Socket.Client.Poll(1, SelectMode.SelectRead) && __Socket.Client.Available == 0);
+                }
+                catch (SocketException) 
+                { 
+                    return false; 
+                }
+            }
         }
 
         #endregion

@@ -6,11 +6,9 @@ using System.Threading.Tasks;
 
 namespace TestSparrow.Common
 {
-    public interface IConnection: IWorker
+    interface IClient: IWorker
     {
-        void Send(IPacket packet);
-        IPacketExchanger Exchanger { get; }
-
+        event ConnectionEstablishedEventHandler ConnectionEstablished;
         event ConnectionClosedEventHandler ConnectionClosed;
     }
 }

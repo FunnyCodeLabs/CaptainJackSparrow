@@ -62,8 +62,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Common\Implementations\Connection.cs" />
+    <Compile Include="Common\Implementations\TCPClient.cs" />
+    <Compile Include="Common\Interfaces\IClient.cs" />
     <Compile Include="Common\Interfaces\IServer.cs" />
-    <Compile Include="Common\Implementations\TCPDataExchanger.cs" />
+    <Compile Include="Common\Implementations\TCPPacketExchanger.cs" />
     <Compile Include="Common\Implementations\WorkerBase.cs" />
     <Compile Include="Common\Interfaces\IConnection.cs" />
     <Compile Include="Common\Interfaces\IDataExchanger.cs" />

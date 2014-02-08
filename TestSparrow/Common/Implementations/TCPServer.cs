@@ -12,7 +12,7 @@ namespace TestSparrow.Common
     public class TCPServer : WorkerBase, IServer
     {
         private int __Port;
-        private TcpListener __Socket;
+        private TcpListener __ListenerSocket;
         private IPacketProcessorStorage __PacketProcessors;
 
         private List<IConnection> __ActiveConnections = new List<IConnection>();
@@ -21,7 +21,7 @@ namespace TestSparrow.Common
         public TCPServer(int port, IPAddress ip, IPacketProcessorStorage processors)
         {
             __Port = port;
-            __Socket = new TcpListener(ip, __Port);
+            __ListenerSocket = new TcpListener(ip, __Port);
             __PacketProcessors = processors;
 
         }
@@ -37,7 +37,7 @@ namespace TestSparrow.Common
 
         protected override void JobProc()
         {
-            __Socket.Start();
+            __ListenerSocket.Start();
 
             __ConnectionClosedChecker = Task.Factory.StartNew(() =>
                 {
@@ -46,8 +46,8 @@ namespace TestSparrow.Common
 
             while (!__Stopped)
             {
-                TcpClient clientSocket = __Socket.AcceptTcpClient();
-                IPacketExchanger tcpExchanger = new TCPDataExchanger(clientSocket, __PacketProcessors);
+                TcpClient clientSocket = __ListenerSocket.AcceptTcpClient();
+                IPacketExchanger tcpExchanger = new TCPPacketExchanger(clientSocket, __PacketProcessors);
                 IConnection connection = new Connection(tcpExchanger, __PacketProcessors);
                 __ActiveConnections.Add(connection);
                 connection.ConnectionClosed += ConnectionClosed_EventHandler;
