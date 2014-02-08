@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
@@ -43,6 +44,11 @@ namespace TestSparrow.Common
             }
         }
         public event ConnectionEstablishedEventHandler ConnectionEstablished;
+
+        public ReadOnlyCollection<IConnection> ActiveConnections
+        {
+            get { return __ActiveConnections.AsReadOnly(); }
+        }
 
         protected virtual void OnConnectionEstablished(IConnection connection)
         {
