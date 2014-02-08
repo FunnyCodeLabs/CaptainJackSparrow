@@ -13,6 +13,7 @@ namespace TestSparrow.Common
         private IPacketHandlerStorage __PacketProcessorStorage;
 
         private List<Task> __RunningHandles = new List<Task>();
+        private Task __ConnectionChecker;
 
         public Connection(IPacketExchanger exchanger, IPacketHandlerStorage storage)
         {
@@ -33,6 +34,15 @@ namespace TestSparrow.Common
             __RunningHandles.Add(task);
         }
 
+        protected virtual void OnConnectionClosed()
+        {
+            ConnectionClosedEventHandler handler = ConnectionClosed;
+            if (handler != null)
+            {
+                handler(this, this);
+            }
+        }
+
         public void Send(IPacket packet)
         {
             __Exchanger.Send(packet);
@@ -42,6 +52,17 @@ namespace TestSparrow.Common
         {
             __Exchanger.DataRecieved += HandlePacketRecievedAsync;
             __Exchanger.Start();
+
+            __ConnectionChecker = Task.Factory.StartNew(() =>
+                {
+                    while (__Exchanger.Active)
+                        Thread.Sleep(50);
+
+                    OnConnectionClosed();
+
+                    if (!__Stopped)
+                        Stop();
+                });
         }
 
         public override void Stop()
@@ -51,6 +72,10 @@ namespace TestSparrow.Common
 
             while (__RunningHandles.Count > 0)
                 Thread.Sleep(10);
+
+            OnConnectionClosed();
         }
+
+        public event ConnectionClosedEventHandler ConnectionClosed;
     }
 }

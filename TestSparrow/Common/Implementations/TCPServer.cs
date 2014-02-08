@@ -9,54 +9,76 @@ using System.Threading.Tasks;
 
 namespace TestSparrow.Common
 {
-    public class TCPServer: WorkerBase, IServer
+    public class TCPServer : WorkerBase, IServer
     {
         private int __Port;
         private TcpListener __Socket;
         private IPacketProcessorStorage __PacketProcessors;
 
         private List<IConnection> __ActiveConnections = new List<IConnection>();
+        private Task __ConnectionClosedChecker;
 
-        public TCPServer(int port, IPAddress ip,  IPacketProcessorStorage processors)
+        public TCPServer(int port, IPAddress ip, IPacketProcessorStorage processors)
         {
             __Port = port;
             __Socket = new TcpListener(ip, __Port);
             __PacketProcessors = processors;
+
         }
 
         public TCPServer(int port, IPacketProcessorStorage processors)
             : this(port, IPAddress.Any, processors)
         { }
 
+        private void ConnectionClosed_EventHandler(object sender, IConnection connection)
+        {
+            OnServerConnectionClosed(connection);
+        }
+
         protected override void JobProc()
         {
             __Socket.Start();
 
-            while (__Stopped)
+            __ConnectionClosedChecker = Task.Factory.StartNew(() =>
+                {
+
+                });
+
+            while (!__Stopped)
             {
                 TcpClient clientSocket = __Socket.AcceptTcpClient();
                 IPacketExchanger tcpExchanger = new TCPDataExchanger(clientSocket, __PacketProcessors);
                 IConnection connection = new Connection(tcpExchanger, __PacketProcessors);
                 __ActiveConnections.Add(connection);
+                connection.ConnectionClosed += ConnectionClosed_EventHandler;
 
                 connection.Start();
-                OnConnectionEstablished(connection);
+                OnServerConnectionEstablished(connection);
             }
         }
-        public event ConnectionEstablishedEventHandler ConnectionEstablished;
 
-        public ReadOnlyCollection<IConnection> ActiveConnections
+        protected virtual void OnServerConnectionEstablished(IConnection connection)
         {
-            get { return __ActiveConnections.AsReadOnly(); }
-        }
-
-        protected virtual void OnConnectionEstablished(IConnection connection)
-        {
-            ConnectionEstablishedEventHandler handler = ConnectionEstablished;
+            ConnectionEstablishedEventHandler handler = ServerConnectionEstablished;
             if (handler != null)
             {
                 handler(this, connection);
             }
+        }
+        protected virtual void OnServerConnectionClosed(IConnection connection)
+        {
+            ConnectionClosedEventHandler handler = ServerConnectionClosed;
+            if (handler != null)
+            {
+                handler(this, connection);
+            }
+        }
+
+        public event ConnectionEstablishedEventHandler ServerConnectionEstablished;
+        public event ConnectionClosedEventHandler ServerConnectionClosed;
+        public ReadOnlyCollection<IConnection> ActiveConnections
+        {
+            get { return __ActiveConnections.AsReadOnly(); }
         }
     }
 }

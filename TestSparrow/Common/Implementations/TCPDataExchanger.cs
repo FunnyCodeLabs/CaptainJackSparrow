@@ -12,6 +12,7 @@ namespace TestSparrow.Common
     public class TCPDataExchanger : WorkerBase, IPacketExchanger
     {
         private const int HEADER_SIZE = sizeof(Int32) + sizeof(UInt16);
+        public const int STOP_TIMEOUT = 1000;
 
         private TcpClient __Socket;
         private NetworkStream __Stream;
@@ -27,9 +28,9 @@ namespace TestSparrow.Common
         private Queue<IPacket> __OutputQueue = new Queue<IPacket>();
         private EventWaitHandle __OutputMonitor = new ManualResetEvent(false);
 
-        public TCPDataExchanger(TcpClient client, IPacketParserStorage parsers)
+        public TCPDataExchanger(TcpClient connectedClient, IPacketParserStorage parsers)
         {
-            __Socket = client;
+            __Socket = connectedClient;
             __Stream = __Socket.GetStream();
             __KeyToParserMap = parsers;
         }
@@ -38,6 +39,15 @@ namespace TestSparrow.Common
         {
             __InputProcessorThread = Task.Factory.StartNew(InputProcessor);
             __OutputProcessorThread = Task.Factory.StartNew(OutputProcessor);
+        }
+
+        protected virtual void OnPacketRecieved(IPacket packet)
+        {
+            DataRecievedEventHandler handler = DataRecieved;
+            if (handler != null)
+            {
+                handler(packet);
+            }
         }
 
         private void InputProcessor()
@@ -103,16 +113,16 @@ namespace TestSparrow.Common
             return RB;
         }
 
-        protected virtual void OnPacketRecieved(IPacket packet)
+        public override void Stop()
         {
-            DataRecievedEventHandler handler = DataRecieved;
-            if (handler != null)
-            {
-                handler(packet);
-            }
+            base.Stop();
+            Task.WaitAll(new Task[2] { __InputProcessorThread, __OutputProcessorThread }, STOP_TIMEOUT);
+
+            __Socket.Close();
+            __Socket = null;
         }
 
-        #region IDataExchanger
+        #region IPacketExchanger
 
         public event DataRecievedEventHandler DataRecieved;
 
@@ -122,8 +132,11 @@ namespace TestSparrow.Common
             __OutputMonitor.Set();
         }
 
-        #endregion
+        public bool Active
+        {
+            get { return __Socket.Connected; }
+        }
 
-        
+        #endregion
     }
 }

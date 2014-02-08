@@ -12,5 +12,6 @@ namespace TestSparrow.Common
     {
         void Send(IPacket packet);
         event DataRecievedEventHandler DataRecieved;
+        bool Active { get; }
     }
 }

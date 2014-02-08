@@ -8,10 +8,12 @@ using System.Threading.Tasks;
 namespace TestSparrow.Common
 {
     public delegate void ConnectionEstablishedEventHandler(object sender, IConnection newConnection);
+    public delegate void ConnectionClosedEventHandler(object sender, IConnection closedConnection);
 
     public interface IServer: IWorker
     {
-        event ConnectionEstablishedEventHandler ConnectionEstablished;
+        event ConnectionEstablishedEventHandler ServerConnectionEstablished;
+        event ConnectionClosedEventHandler ServerConnectionClosed;
         ReadOnlyCollection<IConnection> ActiveConnections { get; }
     }
 }

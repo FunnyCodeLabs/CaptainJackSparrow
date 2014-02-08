@@ -9,5 +9,6 @@ namespace TestSparrow.Common
     public interface IConnection: IWorker
     {
         void Send(IPacket packet);
+        event ConnectionClosedEventHandler ConnectionClosed;
     }
 }
