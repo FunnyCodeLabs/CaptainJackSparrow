@@ -9,7 +9,7 @@ namespace TestSparrow.Common
 {
     public class Connection : WorkerBase, IConnection
     {
-        public const int CONNECTED_CHECK_FREQ = 1000;
+        public const int CONNECTION_CHECK_FREQ = 1000;
 
         private IPacketExchanger __Exchanger;
         private IPacketHandlerStorage __PacketProcessorStorage;
@@ -58,7 +58,7 @@ namespace TestSparrow.Common
             __ConnectionChecker = Task.Factory.StartNew(() =>
                 {
                     while (__Exchanger.Active)
-                        Thread.Sleep(CONNECTED_CHECK_FREQ);
+                        Thread.Sleep(CONNECTION_CHECK_FREQ);
 
                     OnConnectionClosed();
 

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Concurrent;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Net;
@@ -16,6 +17,7 @@ namespace TestSparrow.Common
         private IPacketProcessorStorage __PacketProcessors;
 
         private List<IConnection> __ActiveConnections = new List<IConnection>();
+        private object __ConnectionsLock = new object();
         private Task __ConnectionClosedChecker;
 
         public TCPServer(int port, IPAddress ip, IPacketProcessorStorage processors)
@@ -32,6 +34,10 @@ namespace TestSparrow.Common
 
         private void ConnectionClosed_EventHandler(object sender, IConnection connection)
         {
+            lock (__ConnectionsLock)
+            {
+                __ActiveConnections.Remove(connection);
+            }
             OnServerConnectionClosed(connection);
         }
 
@@ -39,17 +45,13 @@ namespace TestSparrow.Common
         {
             __ListenerSocket.Start();
 
-            __ConnectionClosedChecker = Task.Factory.StartNew(() =>
-                {
-
-                });
-
             while (!__Stopped)
             {
                 TcpClient clientSocket = __ListenerSocket.AcceptTcpClient();
                 IPacketExchanger tcpExchanger = new TCPPacketExchanger(clientSocket, __PacketProcessors);
                 IConnection connection = new Connection(tcpExchanger, __PacketProcessors);
-                __ActiveConnections.Add(connection);
+                lock (__ConnectionsLock)
+                    __ActiveConnections.Add(connection);
                 connection.ConnectionClosed += ConnectionClosed_EventHandler;
 
                 connection.Start();
@@ -78,7 +80,11 @@ namespace TestSparrow.Common
         public event ConnectionClosedEventHandler ServerConnectionClosed;
         public ReadOnlyCollection<IConnection> ActiveConnections
         {
-            get { return __ActiveConnections.AsReadOnly(); }
+            get 
+            {
+                lock (__ConnectionsLock)
+                    return __ActiveConnections.AsReadOnly();
+            }
         }
     }
 }

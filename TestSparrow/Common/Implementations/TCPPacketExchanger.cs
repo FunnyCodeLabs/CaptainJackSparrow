@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -25,7 +26,7 @@ namespace TestSparrow.Common
         private UInt16 __PacketLength;
 
         private Task __OutputProcessorThread;
-        private Queue<IPacket> __OutputQueue = new Queue<IPacket>();
+        private ConcurrentQueue<IPacket> __OutputQueue = new ConcurrentQueue<IPacket>();
         private EventWaitHandle __OutputMonitor = new ManualResetEvent(false);
 
         public TCPPacketExchanger(TcpClient connectedClient, IPacketParserStorage parsers)
@@ -80,7 +81,8 @@ namespace TestSparrow.Common
 
                 if (__OutputQueue.Count > 0)
                 {
-                    IPacket packet = __OutputQueue.Dequeue();
+                    IPacket packet;
+                    __OutputQueue.TryDequeue(out packet);
                     IPacketParser parser = __KeyToParserMap.GetParser(packet.Id);
                     byte[] data = parser.Serialize(packet);
 
