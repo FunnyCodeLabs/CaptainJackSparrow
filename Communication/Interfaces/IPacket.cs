@@ -4,9 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TestSparrow.Common
+namespace Communication
 {
-    public class TCPDataExchangerException: Exception
+    public interface IPacket
     {
+        PacketKey Id { get; }
+        ushort Length { get; }
     }
 }

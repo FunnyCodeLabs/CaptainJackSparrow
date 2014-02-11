@@ -4,11 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TestSparrow.Common
+namespace Communication
 {
-    interface IClient: IWorker
+    public interface IConnection: IWorker
     {
-        event ConnectionEstablishedEventHandler ConnectionEstablished;
+        void Send(IPacket packet);
+        IPacketExchanger Exchanger { get; }
+
         event ConnectionClosedEventHandler ConnectionClosed;
     }
 }

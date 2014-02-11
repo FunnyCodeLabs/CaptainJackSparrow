@@ -3,6 +3,8 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestSparrow", "TestSparrow\TestSparrow.csproj", "{695D5133-C8BA-4559-B9D7-B9AEB8838F71}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Communication", "Communication\Communication.csproj", "{D3603EA2-5955-45C1-B51F-F2EA8253B5E1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -13,6 +15,10 @@ Global
 		{695D5133-C8BA-4559-B9D7-B9AEB8838F71}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{695D5133-C8BA-4559-B9D7-B9AEB8838F71}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{695D5133-C8BA-4559-B9D7-B9AEB8838F71}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D3603EA2-5955-45C1-B51F-F2EA8253B5E1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D3603EA2-5955-45C1-B51F-F2EA8253B5E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D3603EA2-5955-45C1-B51F-F2EA8253B5E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D3603EA2-5955-45C1-B51F-F2EA8253B5E1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

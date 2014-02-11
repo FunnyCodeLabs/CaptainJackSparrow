@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace TestSparrow.Common
+namespace Communication
 {
     public class Connection : WorkerBase, IConnection
     {
@@ -79,5 +79,10 @@ namespace TestSparrow.Common
         }
 
         public event ConnectionClosedEventHandler ConnectionClosed;
+
+        public IPacketExchanger Exchanger
+        {
+            get { return __Exchanger; }
+        }
     }
 }

@@ -8,7 +8,7 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TestSparrow.Common
+namespace Communication
 {
     public class TCPServer : WorkerBase, IServer
     {

@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TestSparrow.Common
+namespace Communication
 {
     public delegate void ConnectionEstablishedEventHandler(object sender, IConnection newConnection);
     public delegate void ConnectionClosedEventHandler(object sender, IConnection closedConnection);

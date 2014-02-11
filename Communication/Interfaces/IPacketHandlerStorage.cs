@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TestSparrow.Common
+namespace Communication
 {
-    public interface IPacketParserStorage
+    public interface IPacketHandlerStorage
     {
-        IPacketParser GetParser(PacketKey key);
+        IPacketHandler GetHandler(PacketKey key);
     }
 }

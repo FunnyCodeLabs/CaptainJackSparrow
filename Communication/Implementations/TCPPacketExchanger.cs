@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace TestSparrow.Common
+namespace Communication
 {
     public class TCPPacketExchanger : WorkerBase, IPacketExchanger
     {
