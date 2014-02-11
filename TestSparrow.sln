@@ -5,6 +5,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestSparrow", "TestSparrow\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Communication", "Communication\Communication.csproj", "{D3603EA2-5955-45C1-B51F-F2EA8253B5E1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "Common\Common.csproj", "{49BE31DE-118F-4ADF-B2BC-9BC1B1075663}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -19,6 +21,10 @@ Global
 		{D3603EA2-5955-45C1-B51F-F2EA8253B5E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D3603EA2-5955-45C1-B51F-F2EA8253B5E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D3603EA2-5955-45C1-B51F-F2EA8253B5E1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{49BE31DE-118F-4ADF-B2BC-9BC1B1075663}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{49BE31DE-118F-4ADF-B2BC-9BC1B1075663}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{49BE31DE-118F-4ADF-B2BC-9BC1B1075663}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{49BE31DE-118F-4ADF-B2BC-9BC1B1075663}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
