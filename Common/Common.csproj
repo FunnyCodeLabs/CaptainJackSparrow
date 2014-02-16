@@ -39,7 +39,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AuthStatus.cs" />
     <Compile Include="BinaryDataFormatter.cs" />
+    <Compile Include="Packets\AuthPacket.cs" />
+    <Compile Include="Packets\MessagePacket.cs" />
+    <Compile Include="Packets\MultipleStringContainerPacket.cs" />
+    <Compile Include="Packets\StringContainerPacket.cs" />
     <Compile Include="Packets\Base\PacketBase.cs" />
     <Compile Include="Packets\Base\PacketHandlerBase.cs" />
     <Compile Include="Packets\Base\PacketParserBase.cs" />

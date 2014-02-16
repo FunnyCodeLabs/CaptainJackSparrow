@@ -9,52 +9,23 @@ namespace Common.Packets
 {
     public abstract class PacketBase : IPacket
     {
+        public static const ushort MAX_PACKET_SIZE = UInt16.MaxValue;
+        public static const ushort PACKETBASE_SIZE = PacketKey.PacketKeySize;
+
         private PacketKey __Key;
-        private UInt16 __Length;
-        private byte[] __Data;
 
-        public PacketBase(int id)
-            : this(id, null)
-        { 
-
-        }
-
-        public PacketBase(int id, byte[] data)
+        public PacketBase()
         {
-            __Key = new PacketKey(id);
-            __Data = data;
-            UpdateLength();
+            __Key = new PacketKey(ID);
         }
 
-        protected void UpdateLength()
-        {
-            __Length = (ushort)(sizeof(Int32) + sizeof(UInt16) + (__Data != null ? __Data.Length : 0));
-        }
+        protected abstract virtual int ID;
 
-        public virtual byte[] Data
-        {
-            get
-            {
-                return __Data;
-            }
-            set
-            {
-                __Data = value;
-                UpdateLength();
-            }
-        }
-
-        public virtual PacketKey Id
+        public PacketKey Key
         {
             get { return __Key; }
         }
 
-        public virtual ushort Length
-        {
-            get 
-            {
-                return __Length;
-            }
-        }
+        public abstract virtual ushort Length;
     }
 }
