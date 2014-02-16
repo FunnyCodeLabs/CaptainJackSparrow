@@ -41,15 +41,18 @@
   <ItemGroup>
     <Compile Include="AuthStatus.cs" />
     <Compile Include="BinaryDataFormatter.cs" />
+    <Compile Include="ErrorPacket.cs" />
+    <Compile Include="IDataFormatter.cs" />
     <Compile Include="Packets\AuthPacket.cs" />
     <Compile Include="Packets\MessagePacket.cs" />
     <Compile Include="Packets\MultipleStringContainerPacket.cs" />
     <Compile Include="Packets\StringContainerPacket.cs" />
-    <Compile Include="Packets\Base\PacketBase.cs" />
-    <Compile Include="Packets\Base\PacketHandlerBase.cs" />
-    <Compile Include="Packets\Base\PacketParserBase.cs" />
-    <Compile Include="Packets\Base\PacketProcessor.cs" />
-    <Compile Include="Packets\Base\PacketProcessorStorageBase.cs" />
+    <Compile Include="Base\PacketBase.cs" />
+    <Compile Include="Base\PacketHandlerBase.cs" />
+    <Compile Include="Base\PacketParserBase.cs" />
+    <Compile Include="Base\PacketProcessor.cs" />
+    <Compile Include="Base\PacketProcessorStorageBase.cs" />
+    <Compile Include="Parsers\StringContainerPacketParser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

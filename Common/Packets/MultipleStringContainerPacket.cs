@@ -9,6 +9,7 @@ namespace Common.Packets
 {
     class MultipleStringContainerPacket: StringContainerPacket
     {
+        public static const PacketKey KEY = 0x03;
         public static const char DELIMITER = '-';
 
         private String[] __MultStrings;
@@ -39,9 +40,12 @@ namespace Common.Packets
             return b.ToString();
         }
 
-        public override int ID
+        public override PacketKey Key
         {
-            get { return 0x03; }
+            get
+            {
+                return KEY;
+            }
         }
     }
 }

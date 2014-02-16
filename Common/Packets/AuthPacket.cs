@@ -9,6 +9,7 @@ namespace Common.Packets
 {
     class AuthPacket: StringContainerPacket
     {
+        public static const PacketKey KEY = 0x01;
         public static const int MAX_NICKNAME_LENGTH = StringContainerPacket.MAX_STRING_LENGTH - sizeof(AuthStatus);
 
         private string __Nickname;
@@ -43,11 +44,11 @@ namespace Common.Packets
             }
         }
 
-        public override int ID
+        public override PacketKey Key
         {
             get
             {
-                return 0x01;
+                return KEY;
             }
         }
     }

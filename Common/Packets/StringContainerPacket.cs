@@ -9,6 +9,7 @@ namespace Common.Packets
 {
     public class StringContainerPacket: PacketBase
     {
+        public static const PacketKey KEY = 0x02;
         public static const int MAX_STRING_LENGTH = MAX_PACKET_SIZE / sizeof(char);
 
         private string __Str;
@@ -34,9 +35,12 @@ namespace Common.Packets
             }
         }
 
-        public override int ID
+        public override PacketKey Key
         {
-            get { return 0x02; }
+            get
+            {
+                return KEY;
+            }
         }
     }
 }

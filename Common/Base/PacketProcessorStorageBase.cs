@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Common.Packets
+namespace Common
 {
     public abstract class PacketProcessorStorageBase: IPacketProcessorStorage
     {

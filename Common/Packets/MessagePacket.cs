@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Communication;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,7 @@ namespace Common.Packets
 {
     class MessagePacket: MultipleStringContainerPacket
     {
+        public static const PacketKey KEY = 0x04;
         public const string TO_EVERYONE_STR = String.Empty;
 
         private string __From;
@@ -40,11 +42,11 @@ namespace Common.Packets
             set { __Message = value; }
         }
 
-        public override int ID
+        public override PacketKey Key
         {
             get
             {
-                return 0x04;
+                return KEY;
             }
         }
     }
