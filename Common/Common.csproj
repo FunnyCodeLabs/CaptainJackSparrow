@@ -52,6 +52,9 @@
     <Compile Include="Base\PacketParserBase.cs" />
     <Compile Include="Base\PacketProcessor.cs" />
     <Compile Include="Base\PacketProcessorStorageBase.cs" />
+    <Compile Include="Parsers\AuthPacketParser.cs" />
+    <Compile Include="Parsers\MessagePacketParser.cs" />
+    <Compile Include="Parsers\MultipleStringContainerPacketParser.cs" />
     <Compile Include="Parsers\StringContainerPacketParser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

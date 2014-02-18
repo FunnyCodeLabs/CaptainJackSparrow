@@ -1,14 +1,14 @@
-﻿using System;
+﻿using Common.Packets;
+using Communication;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Common.Packets;
-using Communication;
 
 namespace Common.Parsers
 {
-    class StringContainerPacketParser: PacketParserBase
+    class AuthPacketParser: PacketParserBase
     {
         public override IPacket Deserialize(byte[] data)
         {
@@ -18,14 +18,18 @@ namespace Common.Parsers
             UInt16 length;
             GetIDAndLength(data, out key, out length);
 
-            string str = __Formatter.TakeString(data);
+            string nickname = __Formatter.TakeString(data);
+            string enumStr = __Formatter.TakeString(data);
 
-            return new StringContainerPacket(str);
+            AuthStatus status;
+            Enum.TryParse(enumStr, out status);
+
+            return new AuthPacket(nickname, status);
         }
 
         public override byte[] Serialize(IPacket data)
         {
-            StringContainerPacket packet = data as StringContainerPacket;
+            AuthPacket packet = data as AuthPacket;
             if (data == null)
                 return null;
 
@@ -33,7 +37,10 @@ namespace Common.Parsers
             __Formatter.ResetBuffer();
 
             PutIDAndLength(packet.Key, packet.Length);
-            __Formatter.PutString(packet.Str);
+            __Formatter.PutString(packet.Nickname);
+
+            string enumStr = packet.Status.ToString();
+            __Formatter.PutString(enumStr);
 
             return __Formatter.Buffer;
         }

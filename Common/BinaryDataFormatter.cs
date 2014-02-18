@@ -96,8 +96,10 @@ namespace Common
             return v;
         }
 
-        public string TakeString(byte[] data, int length)
+        public string TakeString(byte[] data)
         {
+            UInt16 length = this.TakeUInt16(data);
+
             var v = BitConverter.ToString(data, __Cursor, length);
             __Cursor += sizeof(char) * length;
             return v;
@@ -153,6 +155,9 @@ namespace Common
         public void PutString(string value)
         {
             byte[] bytes = StringEncoding.GetBytes(value);
+            byte[] bytesLength = BitConverter.GetBytes((UInt16)value.Length);
+
+            PutInBuffer(bytesLength);
             PutInBuffer(bytes);
         }
     }

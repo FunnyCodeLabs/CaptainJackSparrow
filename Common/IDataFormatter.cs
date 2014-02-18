@@ -21,7 +21,7 @@ namespace Common
         UInt32 TakeUInt32(byte[] data);
         UInt16 TakeUInt16(byte[] data);
         UInt64 TakeUInt64(byte[] data);
-        string TakeString(byte[] data, int length);
+        string TakeString(byte[] data);
 
         void PutInt32(Int32 value);
         void PutInt16(Int16 value);

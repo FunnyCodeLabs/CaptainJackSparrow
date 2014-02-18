@@ -12,23 +12,17 @@ namespace Common.Packets
         public static const PacketKey KEY = 0x01;
         public static const int MAX_NICKNAME_LENGTH = StringContainerPacket.MAX_STRING_LENGTH - sizeof(AuthStatus);
 
-        private string __Nickname;
-        private AuthStatus __Status;
+        private readonly AuthStatus __Status;
 
         public AuthPacket(string nickname, AuthStatus status)
             :base(nickname)
         {
-            if (nickname.Length > MAX_NICKNAME_LENGTH)
-                __Nickname = new String(nickname.Take(MAX_NICKNAME_LENGTH).ToArray());
-            else
-                __Nickname = nickname;
-
             __Status = status;
         }
 
         public string Nickname
         {
-            get { return __Nickname; }
+            get { return Str; }
         }
 
         public AuthStatus Status

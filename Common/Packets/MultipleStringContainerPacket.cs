@@ -1,4 +1,5 @@
-﻿using Communication;
+﻿using Common.Parsers;
+using Communication;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,17 +8,17 @@ using System.Threading.Tasks;
 
 namespace Common.Packets
 {
-    class MultipleStringContainerPacket: StringContainerPacket
+    class MultipleStringContainerPacket: PacketBase
     {
         public static const PacketKey KEY = 0x03;
-        public static const char DELIMITER = '-';
 
-        private String[] __MultStrings;
+        private readonly ushort __Length;
+        private readonly String[] __MultStrings;
 
-        public MultipleStringContainerPacket(IEnumerable<string> multStrings)
-            :base(MakeOne(multStrings))
+        public MultipleStringContainerPacket(String[] multStrings)
         {
             __MultStrings = multStrings.ToArray();
+            __Length = CalculateLength();
         }
 
         public String[] Strings
@@ -28,16 +29,20 @@ namespace Common.Packets
             }
         }
 
-        public static string MakeOne(IEnumerable<string> multStrings)
+        private ushort CalculateLength()
         {
-            StringBuilder b = new StringBuilder();
-            foreach (var s in multStrings)
+            if (__MultStrings.Length == 0)
+                return 0;
+
+            ushort len = 0;
+            foreach (var item in __MultStrings)
             {
-                b.Append(s);
-                b.Append(DELIMITER);
+                len += (ushort)item.Count((char c) => c == MultipleStringContainerPacketParser.DELIMITER);
             }
-            b.Remove(b.Length - 1, 1);
-            return b.ToString();
+
+            len += (ushort)(__MultStrings.Length - 1);
+
+            return len;
         }
 
         public override PacketKey Key

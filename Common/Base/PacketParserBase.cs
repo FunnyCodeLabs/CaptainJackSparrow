@@ -9,13 +9,7 @@ namespace Common
 {
     public abstract class PacketParserBase: IPacketParser
     {
-        protected PacketKey __Key;
         protected IDataFormatter __Formatter = new BinaryDataFormatter(sizeof(ushort));
-
-        public PacketParserBase(PacketKey id)
-        {
-            __Key = id;
-        }
 
         public abstract virtual IPacket Deserialize(byte[] data);
 

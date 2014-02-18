@@ -12,7 +12,7 @@ namespace Common.Packets
         public static const PacketKey KEY = 0x02;
         public static const int MAX_STRING_LENGTH = MAX_PACKET_SIZE / sizeof(char);
 
-        private string __Str;
+        private readonly string __Str;
 
         public StringContainerPacket(string str)
         {
