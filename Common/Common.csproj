@@ -41,7 +41,6 @@
   <ItemGroup>
     <Compile Include="AuthStatus.cs" />
     <Compile Include="BinaryDataFormatter.cs" />
-    <Compile Include="ErrorPacket.cs" />
     <Compile Include="IDataFormatter.cs" />
     <Compile Include="Packets\AuthPacket.cs" />
     <Compile Include="Packets\ExceptionPacket.cs" />

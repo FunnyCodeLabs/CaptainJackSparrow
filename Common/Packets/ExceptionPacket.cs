@@ -9,12 +9,12 @@ namespace Common.Packets
     class ExceptionPacket: MultipleStringContainerPacket
     {
         public ExceptionPacket(Exception e)
-            : base(new string[] { e.Message, e.StackTrace })
+            : base(new string[] { e.Message, e.StackTrace, e.GetType().ToString() })
         {
         }
 
-        public ExceptionPacket(string Message, string StackTrace)
-            : base(new string[] { Message, StackTrace })
+        public ExceptionPacket(string Message, string StackTrace, string ExceptionName)
+            : base(new string[] { Message, StackTrace, ExceptionName })
         {
         }
 
@@ -26,6 +26,11 @@ namespace Common.Packets
         public string StackTrace
         {
             get { return Strings[1]; }
+        }
+
+        public string ExceptionName
+        {
+            get { return Strings[2]; }
         }
     }
 }

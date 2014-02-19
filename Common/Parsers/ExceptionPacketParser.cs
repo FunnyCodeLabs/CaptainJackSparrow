@@ -23,7 +23,7 @@ namespace Common.Parsers
         {
             MultipleStringContainerPacket multPacket = (MultipleStringContainerPacket)base.Deserialize(data);
 
-            return new ExceptionPacket(multPacket.Strings[0], multPacket.Strings[1]);
+            return new ExceptionPacket(multPacket.Strings[0], multPacket.Strings[1], multPacket.Strings[2]);
         }
     }
 }
