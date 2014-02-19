@@ -19,6 +19,7 @@ namespace Common.Packets
         {
             __MultStrings = multStrings.ToArray();
             __Length = CalculateLength();
+
         }
 
         public String[] Strings
@@ -44,6 +45,7 @@ namespace Common.Packets
 
             return len;
         }
+
 
         public override PacketKey Key
         {

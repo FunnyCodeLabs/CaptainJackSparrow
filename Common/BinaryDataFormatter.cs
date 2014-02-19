@@ -108,6 +108,7 @@ namespace Common
         private void PutInBuffer(byte[] data)
         {
             Array.Copy(data, 0, __Buffer, __Cursor, data.Length);
+            __Cursor += data.Length;
         }
 
         public void PutInt32(int value)
