@@ -11,9 +11,9 @@ namespace Common
     {
         protected IDataFormatter __Formatter = new BinaryDataFormatter(sizeof(ushort));
 
-        public abstract virtual IPacket Deserialize(byte[] data);
+        public abstract IPacket Deserialize(byte[] data);
 
-        public abstract virtual byte[] Serialize(IPacket data);
+        public abstract byte[] Serialize(IPacket data);
 
         protected void GetIDAndLength(byte[] data, out PacketKey id, out ushort length)
         {

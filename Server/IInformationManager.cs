@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Communication
+namespace Server
 {
-    public interface IPacketHandler
+    internal interface IInformationManager
     {
-        void Handle(IConnection sender, IPacket packet);
+        void ShowInfo(String str, bool showDateTime = true);
     }
 }

@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace Common.Packets
 {
-    class MultipleStringContainerPacket: PacketBase
+    public class MultipleStringContainerPacket: PacketBase
     {
-        public static const PacketKey KEY = 0x03;
+        public static readonly PacketKey KEY = 0x03;
 
         private readonly ushort __Length;
         private readonly String[] __MultStrings;
@@ -47,7 +47,12 @@ namespace Common.Packets
         }
 
 
-        public override PacketKey Key
+        public override ushort Length
+        {
+            get { throw new NotImplementedException(); }
+        }
+
+        public override PacketKey Id
         {
             get
             {

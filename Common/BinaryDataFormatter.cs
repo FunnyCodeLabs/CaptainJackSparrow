@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Common
 {
-    class BinaryDataFormatter : IDataFormatter
+    public class BinaryDataFormatter : IDataFormatter
     {
-        public static const Encoding StringEncoding = Encoding.Unicode;
+        public static readonly Encoding StringEncoding = Encoding.Unicode;
 
         private int __BufferSize;
         private int __Cursor;

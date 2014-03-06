@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Communication;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,8 +7,10 @@ using System.Threading.Tasks;
 
 namespace Common.Packets
 {
-    class ExceptionPacket: MultipleStringContainerPacket
+    public class ExceptionPacket: MultipleStringContainerPacket
     {
+        public new static readonly PacketKey KEY = 0x05;
+
         public ExceptionPacket(Exception e)
             : base(new string[] { e.Message, e.StackTrace, e.GetType().ToString() })
         {
@@ -31,6 +34,14 @@ namespace Common.Packets
         public string ExceptionName
         {
             get { return Strings[2]; }
+        }
+
+        public override PacketKey Id
+        {
+            get
+            {
+                return KEY;
+            }
         }
     }
 }

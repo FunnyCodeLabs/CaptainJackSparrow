@@ -36,7 +36,7 @@ namespace Common.Parsers
             __Formatter.ResetCursor();
             __Formatter.ResetBuffer();
 
-            PutIDAndLength(packet.Key, packet.Length);
+            PutIDAndLength(packet.Id, packet.Length);
             __Formatter.PutString(packet.Nickname);
 
             string enumStr = packet.Status.ToString();

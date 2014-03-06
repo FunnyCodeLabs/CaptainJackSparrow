@@ -30,7 +30,7 @@ namespace Communication
                     PacketKey key = packet.Id;
                     IPacketHandler handler = __PacketProcessorStorage.GetHandler(key);
 
-                    handler.Handle(packet);
+                    handler.Handle(this, packet);
                 });
 
             __RunningHandles.Add(task);

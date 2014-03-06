@@ -12,9 +12,14 @@ namespace Common
     {
         private ConcurrentDictionary<PacketKey, IPacketProcessor> __Storage;
 
-        private PacketProcessorStorageBase(IDictionary<PacketKey, IPacketProcessor> processors)
+        public PacketProcessorStorageBase()
         {
-            __Storage = new ConcurrentDictionary<PacketKey, IPacketProcessor>(processors);
+            __Storage = new ConcurrentDictionary<PacketKey, IPacketProcessor>();
+        }
+
+        protected void AddProcessor(PacketKey key, IPacketProcessor processor)
+        {
+            __Storage.TryAdd(key, processor);
         }
 
         protected IPacketProcessor TryGet(PacketKey key)

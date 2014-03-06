@@ -16,6 +16,6 @@ namespace Common
             __Key = id;
         }
 
-        public abstract void Handle(IPacket packet);
+        public abstract void Handle(IConnection sender, IPacket packet);
     }
 }

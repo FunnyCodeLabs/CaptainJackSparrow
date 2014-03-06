@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Communication
+namespace Server
 {
-    public interface IPacketHandler
+    class InformationManager
     {
-        void Handle(IConnection sender, IPacket packet);
     }
 }

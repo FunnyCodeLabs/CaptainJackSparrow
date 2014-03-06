@@ -11,8 +11,8 @@ namespace Common.Parsers
 {
     class MultipleStringContainerPacketParser : StringContainerPacketParser
     {
-        public static const char DELIMITER = '-';
-        public static const char ESCAPE = '\\';
+        public const char DELIMITER = '-';
+        public const char ESCAPE = '\\';
 
         public override IPacket Deserialize(byte[] data)
         {

@@ -9,18 +9,18 @@ namespace Common
 {
     public abstract class PacketBase : IPacket
     {
-        public static const ushort MAX_PACKET_SIZE = UInt16.MaxValue;
-        public static const ushort PACKETBASE_SIZE = PacketKey.PacketKeySize;
+        public static readonly ushort MAX_PACKET_SIZE = UInt16.MaxValue;
+        public static readonly ushort PACKETBASE_SIZE = PacketKey.PacketKeySize;
 
         protected PacketKey __Key;
 
         public PacketBase()
         {
-            __Key = new PacketKey(Key);
+            __Key = new PacketKey(Id);
         }
 
-        public abstract virtual PacketKey Key;
+        public abstract ushort Length { get; }
 
-        public abstract virtual ushort Length;
+        public abstract PacketKey Id { get; }
     }
 }

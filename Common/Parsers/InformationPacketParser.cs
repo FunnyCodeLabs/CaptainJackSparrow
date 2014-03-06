@@ -19,7 +19,7 @@ namespace Common.Parsers
             __Formatter.ResetBuffer();
             __Formatter.ResetCursor();
 
-            PutIDAndLength(packet.Key, packet.Length);
+            PutIDAndLength(packet.Id, packet.Length);
 
             __Formatter.PutString(packet.Info);
 

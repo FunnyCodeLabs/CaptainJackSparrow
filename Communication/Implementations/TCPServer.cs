@@ -18,7 +18,6 @@ namespace Communication
 
         private List<IConnection> __ActiveConnections = new List<IConnection>();
         private object __ConnectionsLock = new object();
-        private Task __ConnectionClosedChecker;
 
         public TCPServer(int port, IPAddress ip, IPacketProcessorStorage processors)
         {

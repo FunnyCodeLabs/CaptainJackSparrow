@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 
 namespace Common.Packets
 {
-    class AuthPacket: StringContainerPacket
+    public class AuthPacket: StringContainerPacket
     {
-        public static const PacketKey KEY = 0x01;
-        public static const int MAX_NICKNAME_LENGTH = StringContainerPacket.MAX_STRING_LENGTH - sizeof(AuthStatus);
+        public new static readonly PacketKey KEY = 0x01;
+        public static readonly int MAX_NICKNAME_LENGTH = StringContainerPacket.MAX_STRING_LENGTH - sizeof(AuthStatus);
 
         private readonly AuthStatus __Status;
 
@@ -38,7 +38,7 @@ namespace Common.Packets
             }
         }
 
-        public override PacketKey Key
+        public override PacketKey Id
         {
             get
             {

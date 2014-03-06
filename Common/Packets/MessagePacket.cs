@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 
 namespace Common.Packets
 {
-    class MessagePacket: MultipleStringContainerPacket
+    public class MessagePacket: MultipleStringContainerPacket
     {
-        public static const PacketKey KEY = 0x04;
-        public const string TO_EVERYONE_STR = String.Empty;
+        public new static readonly PacketKey KEY = 0x04;
+        public static readonly string TO_EVERYONE_STR = String.Empty;
 
         public MessagePacket(string from, string to, string message)
             : base(new string[] { from, to, message })
@@ -32,7 +32,7 @@ namespace Common.Packets
             get { return Strings[2]; }
         }
 
-        public override PacketKey Key
+        public override PacketKey Id
         {
             get
             {

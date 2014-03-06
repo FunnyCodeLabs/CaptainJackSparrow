@@ -4,15 +4,16 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{49BE31DE-118F-4ADF-B2BC-9BC1B1075663}</ProjectGuid>
-    <OutputType>Library</OutputType>
+    <ProjectGuid>{90838728-52FC-4A7C-A67B-14E9380F204A}</ProjectGuid>
+    <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Common</RootNamespace>
-    <AssemblyName>Common</AssemblyName>
+    <RootNamespace>Server</RootNamespace>
+    <AssemblyName>Server</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -22,6 +23,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -39,36 +41,30 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AuthStatus.cs" />
-    <Compile Include="BinaryDataFormatter.cs" />
-    <Compile Include="IDataFormatter.cs" />
-    <Compile Include="ILogger.cs" />
-    <Compile Include="Logger.cs" />
-    <Compile Include="Packets\AuthPacket.cs" />
-    <Compile Include="Packets\ExceptionPacket.cs" />
-    <Compile Include="Packets\InformationPacket.cs" />
-    <Compile Include="Packets\MessagePacket.cs" />
-    <Compile Include="Packets\MultipleStringContainerPacket.cs" />
-    <Compile Include="Packets\StringContainerPacket.cs" />
-    <Compile Include="Base\PacketBase.cs" />
-    <Compile Include="Base\PacketHandlerBase.cs" />
-    <Compile Include="Base\PacketParserBase.cs" />
-    <Compile Include="Base\PacketProcessor.cs" />
-    <Compile Include="Base\PacketProcessorStorageBase.cs" />
-    <Compile Include="Parsers\AuthPacketParser.cs" />
-    <Compile Include="Parsers\ExceptionPacketParser.cs" />
-    <Compile Include="Parsers\InformationPacketParser.cs" />
-    <Compile Include="Parsers\MessagePacketParser.cs" />
-    <Compile Include="Parsers\MultipleStringContainerPacketParser.cs" />
-    <Compile Include="Parsers\StringContainerPacketParser.cs" />
+    <Compile Include="ChatServer.cs" />
+    <Compile Include="Handlers\AuthServerPacketHandler.cs" />
+    <Compile Include="IInformationManager.cs" />
+    <Compile Include="InformationManager.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ServerContext.cs" />
+    <Compile Include="Handlers\ServerPacketHandler.cs" />
+    <Compile Include="ServerPacketProcessorStorage.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Common\Common.csproj">
+      <Project>{49be31de-118f-4adf-b2bc-9bc1b1075663}</Project>
+      <Name>Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Communication\Communication.csproj">
       <Project>{d3603ea2-5955-45c1-b51f-f2ea8253b5e1}</Project>
       <Name>Communication</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

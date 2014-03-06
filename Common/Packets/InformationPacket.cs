@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace Common.Packets
 {
-    class InformationPacket: StringContainerPacket
+    public class InformationPacket: StringContainerPacket
     {
-        public static const PacketKey KEY = 0x05;
+        public new static readonly PacketKey KEY = 0x05;
 
         private readonly ushort[] __Highlights;
 
@@ -29,7 +29,7 @@ namespace Common.Packets
             get { return __Highlights; }
         }
 
-        public override PacketKey Key
+        public override PacketKey Id
         {
             get
             {
