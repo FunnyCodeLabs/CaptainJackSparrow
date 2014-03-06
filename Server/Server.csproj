@@ -50,6 +50,7 @@
     <Compile Include="ServerContext.cs" />
     <Compile Include="Handlers\ServerPacketHandler.cs" />
     <Compile Include="ServerPacketProcessorStorage.cs" />
+    <Compile Include="UserClient.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

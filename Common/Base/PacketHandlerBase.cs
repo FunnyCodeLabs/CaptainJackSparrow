@@ -9,7 +9,7 @@ namespace Common
 {
     public abstract class PacketHandlerBase: IPacketHandler
     {
-        private PacketKey __Key;
+        protected PacketKey __Key;
 
         public PacketHandlerBase(PacketKey id)
         {

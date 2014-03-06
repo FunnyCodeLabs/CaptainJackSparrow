@@ -10,14 +10,12 @@ namespace Server.Handlers
 {
     internal abstract class ServerPacketHandler : PacketHandlerBase
     {
-        private ServerContext __Context;
+        protected ServerContext __Context;
 
         public ServerPacketHandler(PacketKey key, ServerContext context)
             :base(key)
         {
             __Context = context;
         }
-
-        public abstract void Handle(IConnection sender, IPacket packet);
     }
 }

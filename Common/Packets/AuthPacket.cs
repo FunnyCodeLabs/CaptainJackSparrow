@@ -22,7 +22,7 @@ namespace Common.Packets
 
         public string Nickname
         {
-            get { return Str; }
+            get { return __Str; }
         }
 
         public AuthStatus Status

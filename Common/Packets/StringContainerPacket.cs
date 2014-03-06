@@ -12,7 +12,7 @@ namespace Common.Packets
         public static readonly PacketKey KEY = 0x02;
         public static readonly int MAX_STRING_LENGTH = MAX_PACKET_SIZE / sizeof(char);
 
-        private readonly string __Str;
+        protected readonly string __Str;
 
         public StringContainerPacket(string str)
         {
@@ -22,16 +22,19 @@ namespace Common.Packets
                 __Str = str;
         }
 
-        public String Str
-        {
-            get { return __Str; }
-        }
-
         public override ushort Length
         {
             get
             {
                 return (ushort)(PACKETBASE_SIZE + __Str.Length * sizeof(char));
+            }
+        }
+
+        public string Str
+        {
+            get
+            {
+                return __Str;
             }
         }
 

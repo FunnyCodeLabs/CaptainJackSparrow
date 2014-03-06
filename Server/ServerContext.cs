@@ -1,4 +1,5 @@
-﻿using Communication;
+﻿using Common;
+using Communication;
 using System;
 using System.Collections;
 using System.Collections.Concurrent;
@@ -9,13 +10,14 @@ using System.Threading.Tasks;
 
 namespace Server
 {
-    class ServerContext
+    internal class ServerContext
     {
         private bool __Initialized = false;
 
         private TCPServer __TcpServer;
         private IInformationManager __Info;
-        private IDictionary<string, IConnection> __NickToConnectionMap = new ConcurrentDictionary<string, IConnection>();
+        private ConcurrentBiDictionary<UserClient, IConnection> __ClientToConnectionMap = 
+            new ConcurrentBiDictionary<UserClient, IConnection>();
 
         public ServerContext(IInformationManager infoManager)
         {
@@ -43,7 +45,7 @@ namespace Server
 
         public IInformationManager InfoManager { get { return __Info; } }
 
-        public IDictionary<string, IConnection> NickToConnection { get { return __NickToConnectionMap; } }
+        public ConcurrentBiDictionary<UserClient, IConnection> ClientToConnection { get { return __ClientToConnectionMap; } }
 
         #endregion
     }

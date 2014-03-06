@@ -8,7 +8,7 @@ using Communication;
 
 namespace Common.Parsers
 {
-    class StringContainerPacketParser: PacketParserBase
+    public class StringContainerPacketParser: PacketParserBase
     {
         public override IPacket Deserialize(byte[] data)
         {

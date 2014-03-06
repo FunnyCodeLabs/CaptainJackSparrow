@@ -40,6 +40,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AuthStatus.cs" />
+    <Compile Include="ConcurrentBiDictionary.cs" />
     <Compile Include="BinaryDataFormatter.cs" />
     <Compile Include="IDataFormatter.cs" />
     <Compile Include="ILogger.cs" />
