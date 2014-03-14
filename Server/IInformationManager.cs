@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Communication;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,5 +10,6 @@ namespace Server
     internal interface IInformationManager
     {
         void ShowInfo(String str, bool showDateTime = true);
+        void ShowInfo(IPacket packet);
     }
 }

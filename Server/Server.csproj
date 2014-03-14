@@ -42,7 +42,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ChatServer.cs" />
-    <Compile Include="Handlers\AuthServerPacketHandler.cs" />
+    <Compile Include="Exceptions\ServerException.cs" />
+    <Compile Include="Handlers\AuthPacketHandler.cs" />
+    <Compile Include="Handlers\MessagePacketHandler.cs" />
+    <Compile Include="Handlers\MultipleStringContainerPacketHandler.cs" />
+    <Compile Include="Handlers\StringContainerPacketHandler.cs" />
     <Compile Include="IInformationManager.cs" />
     <Compile Include="InformationManager.cs" />
     <Compile Include="Program.cs" />

@@ -18,7 +18,7 @@ namespace Common.Parsers
         public override IPacket Deserialize(byte[] data)
         {
             AuthPacket packet = base.Deserialize(data) as AuthPacket;
-            return new InformationPacket(packet.Nickname, packet.Status);
+            return new AuthInformationPacket(packet.Nickname, packet.Status);
         }
     }
 }

@@ -10,7 +10,7 @@ namespace Common.Packets
 {
     public class MultipleStringContainerPacket: PacketBase
     {
-        public static readonly PacketKey KEY = 0x03;
+        public static readonly PacketKey KEY = Constants.MultipleStringContainerPacketKey;
 
         private readonly ushort __Length;
         private readonly String[] __MultStrings;

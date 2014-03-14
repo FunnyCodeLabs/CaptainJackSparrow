@@ -17,5 +17,16 @@ namespace Server.Handlers
         {
             __Context = context;
         }
+
+        protected virtual void NotifyClients(IConnection sender, IPacket packet)
+        {
+            foreach (var item in __Context.ClientToConnection.Values)
+            {
+                if (item != sender)
+                {
+                    item.Send(packet);
+                }
+            }
+        }
     }
 }

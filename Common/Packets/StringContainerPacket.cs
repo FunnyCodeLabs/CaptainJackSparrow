@@ -9,7 +9,7 @@ namespace Common.Packets
 {
     public class StringContainerPacket: PacketBase
     {
-        public static readonly PacketKey KEY = 0x02;
+        public static readonly PacketKey KEY = Constants.StringContainerPacketKey;
         public static readonly int MAX_STRING_LENGTH = MAX_PACKET_SIZE / sizeof(char);
 
         protected readonly string __Str;

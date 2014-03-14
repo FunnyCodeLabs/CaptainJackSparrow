@@ -10,9 +10,9 @@ using System.Threading.Tasks;
 
 namespace Server.Handlers
 {
-    internal class AuthServerPacketHandler : ServerPacketHandler
+    internal class AuthPacketHandler : ServerPacketHandler
     {
-        public AuthServerPacketHandler(ServerContext context)
+        public AuthPacketHandler(ServerContext context)
             : base(AuthPacket.KEY, context)
         { }
 
@@ -35,6 +35,8 @@ namespace Server.Handlers
                 default:
                     throw new NotSupportedException();
             }
+
+            __Context.InfoManager.ShowInfo(authPacket);
         }
 
         private void ProcessOffline(IConnection sender, AuthPacket authPacket)
@@ -55,7 +57,8 @@ namespace Server.Handlers
                 throw new NotSupportedException("Client doest not exist!");
             }
 
-            NotifyUsers(sender, authPacket);
+            AuthInformationPacket info = new AuthInformationPacket(authPacket as AuthPacket);
+            NotifyClients(sender, info);
         }
 
         private void ProcessAFK(IConnection sender, AuthPacket authPacket)
@@ -72,7 +75,8 @@ namespace Server.Handlers
                 throw new NotSupportedException("Client doest not exist!");
             }
 
-            NotifyUsers(sender, authPacket);
+            AuthInformationPacket info = new AuthInformationPacket(authPacket as AuthPacket);
+            NotifyClients(sender, info);
         }
 
         private void ProcessOnline(IConnection sender, AuthPacket authPacket)
@@ -95,7 +99,8 @@ namespace Server.Handlers
                 __Context.InfoManager.ShowInfo(String.Format("User with nickname {0} connected.", authPacket.Nickname));
             }
 
-            NotifyUsers(sender, authPacket);
+            AuthInformationPacket info = new AuthInformationPacket(authPacket as AuthPacket);
+            NotifyClients(sender, info);
         }
 
         private UserClient ProcessExistingClient(IConnection sender, AuthPacket authPacket)
@@ -106,18 +111,6 @@ namespace Server.Handlers
             __Context.InfoManager.ShowInfo(String.Format("User with nickname {0} {1}.", authPacket.Nickname, authPacket.Status));
             client.Status = authPacket.Status;
             return client;
-        }
-
-        private void NotifyUsers(IConnection sender, AuthPacket authPacket)
-        {
-            InformationPacket info = new InformationPacket(authPacket);
-            foreach (var item in __Context.ClientToConnection.Values)
-            {
-                if (item != sender)
-                {
-                    item.Send(info);
-                }
-            }
         }
     }
 }

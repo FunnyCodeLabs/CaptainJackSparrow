@@ -9,7 +9,7 @@ namespace Common.Packets
 {
     public class MessagePacket: MultipleStringContainerPacket
     {
-        public new static readonly PacketKey KEY = 0x04;
+        public new static readonly PacketKey KEY = Constants.MessagePacketKey;
         public static readonly string TO_EVERYONE_STR = String.Empty;
 
         public MessagePacket(string from, string to, string message)

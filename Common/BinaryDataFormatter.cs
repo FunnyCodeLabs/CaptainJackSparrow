@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Common
 {
-    public class BinaryDataFormatter : IDataFormatter
+    internal class BinaryDataFormatter : IDataFormatter
     {
         public static readonly Encoding StringEncoding = Encoding.Unicode;
 

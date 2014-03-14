@@ -9,7 +9,7 @@ namespace Common.Packets
 {
     public class ExceptionPacket: MultipleStringContainerPacket
     {
-        public new static readonly PacketKey KEY = 0x05;
+        public new static readonly PacketKey KEY = Constants.ExceptionPacketKey;
 
         public ExceptionPacket(Exception e)
             : base(new string[] { e.Message, e.StackTrace, e.GetType().ToString() })
