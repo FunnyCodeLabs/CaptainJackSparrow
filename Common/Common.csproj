@@ -48,7 +48,6 @@
     <Compile Include="Logger.cs" />
     <Compile Include="Packets\AuthPacket.cs" />
     <Compile Include="Packets\AuthInformationPacket.cs" />
-    <Compile Include="Packets\ExceptionPacket.cs" />
     <Compile Include="Packets\MessagePacket.cs" />
     <Compile Include="Packets\MultipleStringContainerPacket.cs" />
     <Compile Include="Packets\StringContainerPacket.cs" />
@@ -58,7 +57,6 @@
     <Compile Include="Base\PacketProcessor.cs" />
     <Compile Include="Base\PacketProcessorStorageBase.cs" />
     <Compile Include="Parsers\AuthPacketParser.cs" />
-    <Compile Include="Parsers\ExceptionPacketParser.cs" />
     <Compile Include="Parsers\InformationPacketParser.cs" />
     <Compile Include="Parsers\MessagePacketParser.cs" />
     <Compile Include="Parsers\MultipleStringContainerPacketParser.cs" />

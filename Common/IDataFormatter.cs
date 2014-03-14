@@ -22,6 +22,7 @@ namespace Common
         UInt16 TakeUInt16(byte[] data);
         UInt64 TakeUInt64(byte[] data);
         string TakeString(byte[] data);
+        Exception TakeException(byte[] data);
 
         void PutInt32(Int32 value);
         void PutInt16(Int16 value);
@@ -31,5 +32,6 @@ namespace Common
         void PutUInt16(UInt16 value);
         void PutUInt64(UInt64 value);
         void PutString(String value);
+        void PutException(Exception e);
     }
 }

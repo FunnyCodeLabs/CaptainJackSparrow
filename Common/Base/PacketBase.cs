@@ -9,10 +9,10 @@ namespace Common
 {
     public abstract class PacketBase : IPacket
     {
-        public static readonly ushort MAX_PACKET_SIZE = UInt16.MaxValue;
         public static readonly ushort PACKETBASE_SIZE = PacketKey.PacketKeySize;
 
         protected PacketKey __Key;
+        protected Exception __Error = null;
 
         public PacketBase()
         {
@@ -22,5 +22,17 @@ namespace Common
         public abstract ushort Length { get; }
 
         public abstract PacketKey Id { get; }
+
+        public Exception Error
+        {
+            get
+            {
+                return __Error;
+            }
+            set
+            {
+                __Error = value;
+            }
+        }
     }
 }

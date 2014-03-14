@@ -15,6 +15,25 @@ namespace Common
 
         public abstract byte[] Serialize(IPacket data);
 
+        protected Exception DeseralizeException(byte[] data)
+        {
+            if (__Formatter.Cursor < data.Length &&
+                data[__Formatter.Cursor] == 0xEE)
+            {
+                return __Formatter.TakeException(data);
+            }
+            return null;
+        }
+
+        protected void SerializeException(IPacket data)
+        {
+            if (data.Error != null)
+            {
+                __Formatter.PutByte(0xEE);
+                __Formatter.PutException(data.Error);
+            }
+        }
+
         protected void GetIDAndLength(byte[] data, out PacketKey id, out ushort length)
         {
             __Formatter.ResetCursor();

@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -10,6 +12,7 @@ namespace Common
     {
         public static readonly Encoding StringEncoding = Encoding.Unicode;
 
+        private int __InitialBufferSize;
         private int __BufferSize;
         private int __Cursor;
         private byte[] __Buffer;
@@ -17,18 +20,20 @@ namespace Common
         public BinaryDataFormatter(int bufferSize)
         {
             __BufferSize = bufferSize;
+            __InitialBufferSize = __BufferSize;
             __Cursor = 0;
             __Buffer = new byte[__BufferSize];
         }
 
         public void ResetBuffer()
         {
-            __Buffer = new byte[__BufferSize];
+            __Buffer = new byte[__InitialBufferSize];
         }
 
         public void ResetBuffer(int newBufferSize)
         {
             __Buffer = new byte[newBufferSize];
+            __InitialBufferSize = newBufferSize;
             __BufferSize = newBufferSize;
         }
 
@@ -105,8 +110,25 @@ namespace Common
             return v;
         }
 
+        public Exception TakeException(byte[] data)
+        {
+            using (MemoryStream stream = new MemoryStream(data))
+            {
+                BinaryFormatter bf = new BinaryFormatter();
+                return bf.Deserialize(stream) as Exception;
+            }
+        }
+
         private void PutInBuffer(byte[] data)
         {
+            if (__Cursor + data.Length > __Buffer.Length)
+            {
+                __BufferSize *= 2;
+                byte[] newBuffer = new byte[__BufferSize];
+                Array.Copy(__Buffer, newBuffer, __Buffer.Length);
+                __Buffer = newBuffer;
+            }
+
             Array.Copy(data, 0, __Buffer, __Cursor, data.Length);
             __Cursor += data.Length;
         }
@@ -160,6 +182,16 @@ namespace Common
 
             PutInBuffer(bytesLength);
             PutInBuffer(bytes);
+        }
+
+        public void PutException(Exception e)
+        {
+            using (MemoryStream stream = new MemoryStream())
+            {
+                BinaryFormatter bf = new BinaryFormatter();
+                bf.Serialize(stream, e);
+                PutInBuffer(stream.GetBuffer());
+            }
         }
     }
 }

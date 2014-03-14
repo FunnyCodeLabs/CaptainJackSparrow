@@ -10,5 +10,6 @@ namespace Communication
     {
         PacketKey Id { get; }
         ushort Length { get; }
+        Exception Error { get; set; }
     }
 }

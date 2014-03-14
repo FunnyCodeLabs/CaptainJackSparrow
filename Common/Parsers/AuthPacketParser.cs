@@ -24,7 +24,12 @@ namespace Common.Parsers
             AuthStatus status;
             Enum.TryParse(enumStr, out status);
 
-            return new AuthPacket(nickname, status);
+            
+            AuthPacket p = new AuthPacket(nickname, status);
+            Exception e = DeseralizeException(data);
+            if (e != null)
+                p.Error = e;
+            return p;
         }
 
         public override byte[] Serialize(IPacket data)
@@ -42,6 +47,8 @@ namespace Common.Parsers
             string enumStr = packet.Status.ToString();
             __Formatter.PutString(enumStr);
 
+
+            SerializeException(data);
             return __Formatter.Buffer;
         }
     }

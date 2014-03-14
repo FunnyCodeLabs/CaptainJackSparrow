@@ -17,6 +17,8 @@ namespace Common.Packets
 
         public AuthInformationPacket(AuthPacket packet)
             : base(packet.Nickname, packet.Status)
-        { }
+        {
+            Error = packet.Error;
+        }
     }
 }

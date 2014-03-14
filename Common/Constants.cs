@@ -14,6 +14,5 @@ namespace Common
         internal static readonly PacketKey MultipleStringContainerPacketKey = 0x03;
         internal static readonly PacketKey MessagePacketKey = 0x04;
         internal static readonly PacketKey InformationPacketKey = 0x05;
-        internal static readonly PacketKey ExceptionPacketKey = 0x06;
     }
 }

@@ -10,8 +10,6 @@ namespace Common.Packets
     public class AuthPacket: StringContainerPacket
     {
         public new static readonly PacketKey KEY = Constants.AuthPacketKey;
-        public static readonly int MAX_NICKNAME_LENGTH = StringContainerPacket.MAX_STRING_LENGTH - sizeof(AuthStatus);
-
         private readonly AuthStatus __Status;
 
         public AuthPacket(string nickname, AuthStatus status)
