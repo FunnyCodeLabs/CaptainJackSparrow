@@ -59,5 +59,17 @@ namespace Common.Packets
                 return KEY;
             }
         }
+
+        public override string ToString()
+        {
+            StringBuilder b = new StringBuilder();
+            b.Append(this.GetType() + ". ");
+            foreach (var item in Strings)
+            {
+                b.AppendLine(item);
+            }
+
+            return b.ToString();
+        }
     }
 }

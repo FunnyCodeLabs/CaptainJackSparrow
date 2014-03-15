@@ -44,6 +44,7 @@
     <Compile Include="ChatServer.cs" />
     <Compile Include="Exceptions\ServerException.cs" />
     <Compile Include="Handlers\AuthPacketHandler.cs" />
+    <Compile Include="Handlers\InformationPacketHandler.cs" />
     <Compile Include="Handlers\MessagePacketHandler.cs" />
     <Compile Include="Handlers\MultipleStringContainerPacketHandler.cs" />
     <Compile Include="Handlers\StringContainerPacketHandler.cs" />

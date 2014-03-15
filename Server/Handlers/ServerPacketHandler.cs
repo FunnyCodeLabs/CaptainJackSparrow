@@ -12,8 +12,7 @@ namespace Server.Handlers
     {
         protected ServerContext __Context;
 
-        public ServerPacketHandler(PacketKey key, ServerContext context)
-            :base(key)
+        public ServerPacketHandler(ServerContext context)
         {
             __Context = context;
         }

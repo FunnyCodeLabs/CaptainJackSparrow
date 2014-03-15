@@ -13,7 +13,7 @@ namespace Server.Handlers
     internal class AuthPacketHandler : ServerPacketHandler
     {
         public AuthPacketHandler(ServerContext context)
-            : base(AuthPacket.KEY, context)
+            : base(context)
         { }
 
         public override void Handle(IConnection sender, IPacket packet)

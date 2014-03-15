@@ -41,5 +41,10 @@ namespace Common.Packets
                 return KEY;
             }
         }
+
+        public override string ToString()
+        {
+            return String.Format("{0}. String: {1}", GetType(), Str);
+        }
     }
 }

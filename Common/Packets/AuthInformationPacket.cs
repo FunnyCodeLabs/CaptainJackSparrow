@@ -20,5 +20,10 @@ namespace Common.Packets
         {
             Error = packet.Error;
         }
+
+        public override string ToString()
+        {
+            return String.Format("{0}. Nick: {1}. Status: {2}.", GetType(), Nickname, Status);
+        }
     }
 }

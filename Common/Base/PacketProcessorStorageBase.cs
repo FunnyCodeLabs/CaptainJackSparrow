@@ -17,9 +17,9 @@ namespace Common
             __Storage = new ConcurrentDictionary<PacketKey, IPacketProcessor>();
         }
 
-        protected void AddProcessor(PacketKey key, IPacketProcessor processor)
+        protected void AddProcessor(IPacketProcessor processor)
         {
-            __Storage.TryAdd(key, processor);
+            __Storage.TryAdd(processor.PacketID, processor);
         }
 
         protected IPacketProcessor TryGet(PacketKey key)

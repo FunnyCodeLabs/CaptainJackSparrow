@@ -1,4 +1,5 @@
 ﻿using Common;
+using Common.Packets;
 using Communication;
 using System;
 using System.Collections.Generic;
@@ -10,8 +11,8 @@ namespace Server.Handlers
 {
     internal class StringContainerPacketHandler : ServerPacketHandler
     {
-        public StringContainerPacketHandler(PacketKey key, ServerContext context)
-            : base(key, context)
+        public StringContainerPacketHandler(ServerContext context)
+            : base(context)
         { }
 
         public override void Handle(IConnection sender, IPacket packet)

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Common.Parsers
 {
-    class InformationPacketParser: AuthPacketParser
+    public class AuthInformationPacketParser: AuthPacketParser
     {
         public override byte[] Serialize(IPacket data)
         {

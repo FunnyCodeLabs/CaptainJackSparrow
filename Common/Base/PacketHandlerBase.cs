@@ -9,13 +9,6 @@ namespace Common
 {
     public abstract class PacketHandlerBase: IPacketHandler
     {
-        protected PacketKey __Key;
-
-        public PacketHandlerBase(PacketKey id)
-        {
-            __Key = id;
-        }
-
         public abstract void Handle(IConnection sender, IPacket packet);
     }
 }

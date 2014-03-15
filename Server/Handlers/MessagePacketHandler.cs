@@ -11,8 +11,8 @@ namespace Server.Handlers
 {
     internal class MessagePacketHandler : ServerPacketHandler
     {
-        public MessagePacketHandler(PacketKey key, ServerContext context)
-            : base(key, context)
+        public MessagePacketHandler(ServerContext context)
+            : base(context)
         { }
 
         public override void Handle(IConnection sender, IPacket packet)

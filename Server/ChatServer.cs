@@ -25,7 +25,7 @@ namespace Server
 
             __Context = new ServerContext(infoManager);
 
-            __Processors = new ServerPacketProcessorStorage();
+            __Processors = new ServerPacketProcessorStorage(__Context);
             __TcpServer = new TCPServer(PORT, __Processors);
             __TcpServer.ServerConnectionEstablished += ServerConnectionEstablished;
             __TcpServer.ServerConnectionClosed += ServerConnectionClosed;

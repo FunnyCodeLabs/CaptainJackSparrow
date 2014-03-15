@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Common.Parsers
 {
-    class MultipleStringContainerPacketParser : StringContainerPacketParser
+    public class MultipleStringContainerPacketParser : StringContainerPacketParser
     {
         public const char DELIMITER = '-';
         public const char ESCAPE = '\\';
