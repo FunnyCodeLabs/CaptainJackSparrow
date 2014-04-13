@@ -10,6 +10,8 @@ namespace Server
     {
         static void Main(string[] args)
         {
+            ChatServer server = new ChatServer(new InformationManager());
+            server.Run();
         }
     }
 }

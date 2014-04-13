@@ -11,8 +11,6 @@ namespace Server
 {
     class ChatServer: WorkerBase
     {
-        public const int PORT = 3332;
-
         private TCPServer __TcpServer;
         private IInformationManager __Info;
         private ServerContext __Context;
@@ -26,7 +24,7 @@ namespace Server
             __Context = new ServerContext(infoManager);
 
             __Processors = new ServerPacketProcessorStorage(__Context);
-            __TcpServer = new TCPServer(PORT, __Processors);
+            __TcpServer = new TCPServer(Constants.PORT, __Processors);
             __TcpServer.ServerConnectionEstablished += ServerConnectionEstablished;
             __TcpServer.ServerConnectionClosed += ServerConnectionClosed;
 

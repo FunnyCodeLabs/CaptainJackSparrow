@@ -32,15 +32,40 @@ namespace Communication
             __Socket.Connect(new IPEndPoint(__Ip, __Port));
             __Connection = new Connection(new TCPPacketExchanger(__Socket, __Processors), __Processors);
             __Connection.Start();
+            __Connection.ConnectionClosed += __Connection_ConnectionClosed;
+            OnClientConnectionEstablished(__Connection);
+        }
+
+        private void __Connection_ConnectionClosed(object sender, IConnection closedConnection)
+        {
+            OnClientConnectionClosed(closedConnection);
         }
 
         public override void Stop()
         {
             base.Stop();
             __Connection.Stop();
+            OnClientConnectionClosed(__Connection);
         }
 
-        public event ConnectionEstablishedEventHandler ConnectionEstablished;
-        public event ConnectionClosedEventHandler ConnectionClosed;
+        protected virtual void OnClientConnectionEstablished(IConnection connection)
+        {
+            ConnectionEstablishedEventHandler handler = ClientConnectionEstablished;
+            if (handler != null)
+            {
+                handler(this, connection);
+            }
+        }
+        protected virtual void OnClientConnectionClosed(IConnection connection)
+        {
+            ConnectionClosedEventHandler handler = ClientConnectionClosed;
+            if (handler != null)
+            {
+                handler(this, connection);
+            }
+        }
+
+        public event ConnectionEstablishedEventHandler ClientConnectionEstablished;
+        public event ConnectionClosedEventHandler ClientConnectionClosed;
     }
 }
